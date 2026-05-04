@@ -354,7 +354,7 @@ export default function DocuVault({ files: apiFiles, usedBytes, storageLimitMb }
     try {
       const res = await fetch(file.fileUrl, { method: "HEAD" });
       if (res.status === 404) {
-        setFailedIds((prev) => new Set([...prev, file.id]));
+        setFailedIds((prev) => { const n = new Set(prev); n.add(file.id); return n; });
         showToast("File not found — the record may have been deleted.");
         return;
       }
@@ -379,7 +379,7 @@ export default function DocuVault({ files: apiFiles, usedBytes, storageLimitMb }
     try {
       const res = await fetch(dlUrl, { method: "HEAD" });
       if (res.status === 404) {
-        setFailedIds((prev) => new Set([...prev, file.id]));
+        setFailedIds((prev) => { const n = new Set(prev); n.add(file.id); return n; });
         showToast("File not found — the record may have been deleted.");
         return;
       }
